@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f8fa">
+  <meta name="description" content="Just Pick 纠结终结器。随机拍板、听听内心或认真比较，帮你做出一个愿意接受的选择。">
+  <title>Just Pick — 纠结终结器</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23f4d447'/%3E%3Crect x='7' y='7' width='18' height='18' rx='4' fill='%231e2024'/%3E%3Cg fill='%23f4d447'%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3Ccircle cx='16' cy='16' r='2'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-dice" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 8h.01M12 12h.01M16 16h.01" stroke-width="3.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20V12m7 8V4m7 16V8" stroke-linecap="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M19 11a7 7 0 0 0-12-5L4 9m16 6-3 3A7 7 0 0 1 5 13" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs></svg>
+  <header class="site-header">
+    <a href="./" class="brand" aria-label="Just Pick 首页"><span class="brand-mark"><svg class="icon"><use href="#i-dice"/></svg></span><span>just pick<span class="brand-period">.</span></span></a>
+    <span class="header-caption">纠结终结器 <span class="header-long"><span class="header-divider">/</span> 少一点纠结，多一点生活</span></span>
+    <span class="edition">MADE FOR LITTLE DECISIONS</span>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow">LESS OVERTHINKING, MORE LIVING.</p><h1 id="page-title">纠结到此<span class="title-end">为止<span class="title-dot">。</span></span></h1><p class="intro-description">把选项交给这里，把决定留给自己。</p></div>
+      <span class="intro-note">生活没有标准答案，<br>但你可以有自己的选择。</span>
+    </section>
+    <div class="workspace">
+      <section class="decision-card" aria-label="设置你的选择">
+        <div class="card-heading"><span class="step-tag">01</span><h2>今天，在纠结什么？</h2></div>
+        <form id="decision-form" novalidate>
+          <label class="sr-only" for="question">你在纠结的问题</label>
+          <input id="question" class="question-input" maxlength="100" value="今晚吃什么？" placeholder="写下你正在纠结的事…" autocomplete="off">
+          <div class="templates" aria-label="选择一个场景">
+            <button type="button" class="template active" data-template="food" aria-pressed="true"><span aria-hidden="true">🍜</span> 吃什么</button>
+            <button type="button" class="template" data-template="buy" aria-pressed="false"><span aria-hidden="true">🛍️</span> 买不买</button>
+            <button type="button" class="template" data-template="color" aria-pressed="false"><span aria-hidden="true">🎨</span> 选颜色</button>
+            <button type="button" class="template" data-template="move" aria-pressed="false"><span aria-hidden="true">🏃</span> 动不动</button>
+            <button type="button" class="template" data-template="travel" aria-pressed="false"><span aria-hidden="true">🧭</span> 去哪里</button>
+            <button type="button" class="template" data-template="project" aria-pressed="false"><span aria-hidden="true">💡</span> 选方案</button>
+          </div>
+          <div class="section-label"><h3>摆出你的选项</h3><span id="option-count">3 / 8</span></div>
+          <div id="options" class="option-list"></div>
+          <button id="add-option" class="add-option" type="button"><span aria-hidden="true">＋</span> 再加一个选项</button>
+          <fieldset class="mode-fieldset"><legend>这次，想怎么选？</legend>
+            <div class="mode-grid">
+              <label class="mode"><input type="radio" name="mode" value="random"><svg class="icon"><use href="#i-dice"/></svg><span class="mode-title">帮我拍板</span><span class="mode-caption">小事，交给随机</span></label>
+              <label class="mode selected"><input type="radio" name="mode" value="heart" checked><svg class="icon"><use href="#i-heart"/></svg><span class="mode-title">听听内心 <i>推荐</i></span><span class="mode-caption">看看你的第一反应</span></label>
+              <label class="mode"><input type="radio" name="mode" value="compare"><svg class="icon"><use href="#i-chart"/></svg><span class="mode-title">认真比较</span><span class="mode-caption">按在意的因素打分</span></label>
+            </div>
+          </fieldset>
+          <div id="comparison" class="comparison" hidden></div>
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+          <button class="pick-button" id="pick-button" type="submit"><svg class="icon"><use href="#i-dice"/></svg><span id="pick-label">帮我选一个</span><svg class="icon button-arrow"><use href="#i-arrow"/></svg></button>
+          <p class="form-footnote" id="form-footnote">先给你一个答案，再听听你心里的声音。</p>
+        </form>
+      </section>
+      <aside class="result-column">
+        <section class="result-card" aria-label="选择结果" aria-busy="false">
+          <div class="result-topline"><span>THE PICK</span><span id="result-mode">听听内心</span></div>
+          <div id="result-content" aria-live="polite" aria-atomic="true"></div>
+          <div class="result-bottom"><span>你的选择，你说了算。</span><svg class="icon"><use href="#i-heart"/></svg></div>
+        </section>
+        <section class="tip-card"><span class="tip-symbol" aria-hidden="true">↳</span><div><h3 id="tip-title">答案出现的那一刻，留意一下自己。</h3><p id="tip-copy">是松了一口气，还是有一点失望？这个反应，也许比答案本身更有用。</p></div></section>
+        <p class="privacy-note">不需要注册 · 问题与选项仅在当前页面中处理</p>
+      </aside>
+    </div>
+    <footer><span>just pick. <span class="footer-chinese">让选择轻一点。</span></span><span>没有完美选项，也可以有不错的决定。</span></footer>
+  </main>
+</body>
+</html>
